@@ -1,38 +1,57 @@
-# sv
+# Classify
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+<img src="/docs/screenshot.png" width="80%">
 
-## Creating a project
+> 「私は何度でも繰り返す」
+>
+> <span style="text-align: right;">― 暁美ほむら（魔法少女まどか☆マギカ）<span>
 
-If you're seeing this, you've probably already done this step. Congrats!
+## 概要
 
-```sh
-# create a new project in the current directory
-npx sv create
+このウェブアプリは、大学の時間割のような時限ごとに繰り返されるスケジュールデータを、iCalendar 形式で発行できる Web アプリケーションです。データベースを完全に持たず、ステートレスに処理されるため、簡単にセルフホストできます。
 
-# create a new project in my-app
-npx sv create my-app
-```
+## 使い方
 
-## Developing
+1. [https://classify.sasakulab.com/](https://classify.sasakulab.com/) にアクセスする
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+2. 適当に講義・学期の期間（ターム）を入れる
 
-```sh
-npm run dev
+3. iCal 形式で購読するか、あるいはカレンダーをダウンロードする
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## 購読とダウンロードの違いについて
 
-## Building
+### 1. ダウンロード (Download / .ics ファイル) ※推奨
 
-To create a production version of your app:
+`.ics` ファイルとしてローカルに保存し、カレンダーアプリに「インポート」する方法です。
 
-```sh
-npm run build
-```
+#### メリット
 
-You can preview the production build with `npm run preview`.
+- オフラインでファイルを保持できます
+- 特定の日時の講義を移動させるなど、カレンダーアプリから予定を簡単に変更することができます
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+#### デメリット
+
+- 更新する際は、一度インポートしたイベントを手動で削除してから、新しいファイルを再度インポートする必要があります
+
+### 2. 購読 (Subscribe / URLで追加)
+
+発行された URL (https://.../ical?data=...) を、Google カレンダーや iOS カレンダーの「URL で追加（照会）」機能を使って登録する方法です。
+
+#### メリット
+
+- もし、Classify の発行する iCal ファイルにバグがあった時、サーバ側で調整した最新の仕様を読み込みし直すため、勝手に修正できます。
+
+#### デメリット
+
+- 時間割の内容を変更した場合、URL そのものが変わります。修正した時間割を反映させるには、カレンダーアプリ側で古いカレンダーを削除（登録解除）し、新しい URL を登録し直す必要があります
+- 講義コマの中止・変更・削除をカレンダーアプリから個別に行うことはできません
+
+## ヒント
+
+完成した時間割をブックマークすると、変更があった時に再度そこから編集することができます。
+
+編集した時間割は再度ブックマークし直してください。
+
+## ライセンス
+
+MIT License; (C) 2025 Michiru Tsurumaru, Sasakulab
